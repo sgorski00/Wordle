@@ -94,5 +94,11 @@ public class WordRepositoryImpl implements WordRepository {
         return words;
     }
 
+    @Override
+    public boolean isWordInDB(String word) {
+        Word finding = getWordByName(word);
+        return finding != null;
+    }
+
 
 }

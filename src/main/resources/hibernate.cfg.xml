@@ -9,8 +9,8 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">DBpassword1@</property>
 
-        <property name="hibernate.show_sql">true</property>
-        <property name="hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <mapping class="org.example.entity.Word" />
     </session-factory>

@@ -11,8 +11,8 @@ import java.util.Set;
 
 public class WordExtractor {
     private static final String LINK_TO_PAGE_WITH_WORDS = "https://7esl.com/5-letter-words/";
-    private Set<String> words = new HashSet<>();
-    private WordRepositoryImpl repo = new WordRepositoryImpl(HibernateUtil.getSessionFactory());
+    private final Set<String> words = new HashSet<>();
+    private final WordRepositoryImpl repo = new WordRepositoryImpl(HibernateUtil.getSessionFactory());
 
     public void addWordsFromPageToDB() throws IOException {
         StringBuilder content = WebsiteReader.read(LINK_TO_PAGE_WITH_WORDS);
@@ -30,12 +30,6 @@ public class WordExtractor {
             } catch (StringIndexOutOfBoundsException ignored) {}
         }
         addWordsFromPageToDB(words);
-        System.out.println("words size = " + words.size());
-        System.out.println("words DB size = " + repo.listAllWords().size());
-//        if(words.size() != repo.listAllWords().size()) {
-//        } else{
-//            System.out.println("DB up to date.");
-//        }
     }
 
     private void addWordsFromPageToDB(Set<String> words) {
