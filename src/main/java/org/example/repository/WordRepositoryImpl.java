@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WordRepositoryImpl implements WordRepository {
     private Transaction transaction = null;
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public WordRepositoryImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;

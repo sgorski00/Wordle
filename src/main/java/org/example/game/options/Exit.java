@@ -1,4 +1,4 @@
-package org.example.game;
+package org.example.game.options;
 
 import org.example.Input;
 import org.example.util.HibernateUtil;

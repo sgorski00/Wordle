@@ -14,7 +14,21 @@ public class WordExtractor {
     private final Set<String> words = new HashSet<>();
     private final WordRepositoryImpl repo = new WordRepositoryImpl(HibernateUtil.getSessionFactory());
 
-    public void addWordsFromPageToDB() throws IOException {
+    public WordExtractor() {
+        try {
+            initializeSet();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addWordsFromSetToDB() {
+        for (String w: words) {
+            repo.saveWord(new Word(w));
+        }
+    }
+
+    private void initializeSet() throws IOException {
         StringBuilder content = WebsiteReader.read(LINK_TO_PAGE_WITH_WORDS);
         String word;
         int indexStart = content.indexOf("<li>");
@@ -28,13 +42,6 @@ public class WordExtractor {
                 i = indexEnd;
                 addWordToSetIfValid(word.toLowerCase());
             } catch (StringIndexOutOfBoundsException ignored) {}
-        }
-        addWordsFromPageToDB(words);
-    }
-
-    private void addWordsFromPageToDB(Set<String> words) {
-        for (String w: words) {
-            repo.saveWord(new Word(w));
         }
     }
 
