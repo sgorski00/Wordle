@@ -17,17 +17,14 @@ public class Options {
             word = Input.getText();
             if (repo.isWordInDB(word)) {
                 System.out.println("Word already exists in database");
-
             } else if (!IsWordValid.isValid(word)) {
                 if(!word.equals("0")){
                     System.out.println("Use only 5 letters!");
                 }
             } else {
                 repo.saveWord(new Word(word));
-                System.out.printf("The word: %s, saved!", word);
+                System.out.printf("The word: %s, saved!\n", word);
             }
-            System.out.println();
-            Input.pressEnterToContinue();
         }while(!word.equals("0"));
     }
 
@@ -38,15 +35,19 @@ public class Options {
         do {
             if (choice == 'y') {
                 WordExtractor wordExtractor = new WordExtractor();
-                for (long i = 0; i < repo.listAllWords().size(); i++) {
-                    repo.deleteWord(repo.getWordById(i));
-                }
+                repo.deleteAll();
                 wordExtractor.addWordsFromSetToDB();
+                System.out.println("Reset done");
                 Input.pressEnterToContinue();
                 isEnded = true;
             } else if (choice == 'n') {
                 Input.pressEnterToContinue();
                 isEnded = true;
+            } else {
+                System.out.println("Press 'y' or 'n'");
+                try {
+                    choice = Input.getText().charAt(0);
+                } catch(StringIndexOutOfBoundsException ignored) {}
             }
         }while(!isEnded);
 

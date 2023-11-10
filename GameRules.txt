@@ -1,6 +1,7 @@
 In this game you have 6 attempt to guess the 5-letters word!
 When you guess the letter in exactly same place in word,
-this letter will be upper case. At the end you can see
-what the letter was regardless of the game result.
+this letter will be upper case. Also you can see all of the
+letters, that you guessed and are in word, but in else place.
+At the end you can see what the word was regardless of the game result.
 
 Have fun!

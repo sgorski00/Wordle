@@ -16,4 +16,8 @@ public interface WordRepository {
     List<Word> listAllWords();
 
     boolean isWordInDB(String word);
+
+    void deleteAll();
+
+    List<Long> listAllIds();
 }

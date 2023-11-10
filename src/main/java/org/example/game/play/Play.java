@@ -12,6 +12,7 @@ public class Play {
         Board board = new Board();
         String drawnWord = repo.getWordById(Random.getRandomNumber()).word();
         String usersWord;
+        String lettersInWord = "";
         char[][] clonedBoard = board.board();
         int lives = 6;
 
@@ -21,21 +22,23 @@ public class Play {
             System.out.println("Enter the 5-letter word:");
             usersWord = getValidWord();
             usersWord = LettersChecker.checkAndReturnWord(usersWord, drawnWord);
-            for(int j = 0; j < clonedBoard[i].length; j++){
-                clonedBoard[i][j]=usersWord.charAt(j);
+            lettersInWord = LettersChecker.addLetterToWordIfExistsInAnyPosition(usersWord, drawnWord, lettersInWord);
+            for (int j = 0; j < clonedBoard[i].length; j++) {
+                clonedBoard[i][j] = usersWord.charAt(j);
             }
-            if(usersWord.equalsIgnoreCase(drawnWord)){
+            if (usersWord.equalsIgnoreCase(drawnWord)) {
                 break;
             }
+            System.out.println("Letters that exists in drawn word: " + lettersInWord);
             lives--;
         }
 
         board.printBoard();
 
-        if(lives>0){
+        if (lives > 0) {
             System.out.println("You won! Your lives: " + lives);
             System.out.println("The word was: " + drawnWord);
-        }else {
+        } else {
             System.out.println("You lost, try again. The word was: " + drawnWord);
         }
         Input.pressEnterToContinue();
@@ -47,11 +50,11 @@ public class Play {
         boolean isWordOk = false;
         do {
             usersWord = Input.getText().toLowerCase();
-            if(!IsWordValid.isValid(usersWord)){
+            if (!IsWordValid.isValid(usersWord)) {
                 System.out.println("Use only 5 letters.");
-            } else if(!repo.isWordInDB(usersWord)){
+            } else if (!repo.isWordInDB(usersWord)) {
                 System.out.println("There is no such a word in Database");
-            } else{
+            } else {
                 isWordOk = true;
             }
         }

@@ -28,6 +28,7 @@ public class OptionsMenu {
             switch (choice){
                 case 1 -> Options.addWordToDB();
                 case 2 -> Options.resetDB();
+                case 9 -> System.out.println("Going back");
                 default -> System.err.println("Enter correct number\n");
             }
         }while(!optionsMenuList.containsKey(choice));

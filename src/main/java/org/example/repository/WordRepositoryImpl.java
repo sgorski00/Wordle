@@ -61,6 +61,7 @@ public class WordRepositoryImpl implements WordRepository {
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
+                e.printStackTrace();
                 transaction.rollback();
             }
         }
@@ -98,6 +99,40 @@ public class WordRepositoryImpl implements WordRepository {
     public boolean isWordInDB(String word) {
         Word finding = getWordByName(word);
         return finding != null;
+    }
+
+    @Override
+    public void deleteAll() {
+        String hql = "DELETE FROM Word";
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Query<Word> query= session.createQuery(hql);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Long> listAllIds() {
+        String hql = "SELECT id FROM Word";
+        List<Long> ids = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Query<Long> query= session.createQuery(hql, Long.class);
+            ids = query.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return ids;
     }
 
 
